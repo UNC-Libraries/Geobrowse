@@ -29,7 +29,7 @@ def build():
     of.close()
 
     shutil.copyfile(os.path.join(root, 'src/style.css'), os.path.join(dist, 'style.css'))
-    shutil.copyfile(os.path.join(root, 'src/index-example.html'), os.path.join(dist, 'index.html'))
+    shutil.copyfile(os.path.join(root, 'src/index.html'), os.path.join(dist, 'index.html'))
     shutil.copyfile(os.path.join(root, 'src/facets.tmpl.html'), os.path.join(dist, 'facets.tmpl.html'))
 
 if __name__ == '__main__':
