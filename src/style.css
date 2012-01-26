@@ -1,0 +1,240 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: arial, verdana, sans-serif;
+  font-size: 12px;
+
+}
+
+div, h1, h2, h3, h4, h5, h6, ul, li {
+    padding: 0;
+    margin: 0;
+}
+
+#content2 h1 {
+    padding-bottom: 0.5em;
+}
+
+#facets a {
+    color: #40758F;
+    text-decoration: none;
+}
+
+img {
+    border: none;
+}
+
+#content {
+    padding: 10px;
+}
+
+#map-container {
+    width: 75%;
+    min-width: 600px;
+    margin-left: 15px;
+    float: left;
+    font-size: 12px;
+}
+
+#map {
+    height: 400px;
+    border: 1px solid gray;
+}
+
+#topbar {
+    padding-right: 5px;
+    padding-left: 5px;
+    background-color: #ddd;
+    border: 1px solid gray;
+    border-bottom: 0;
+    position: relative;
+    height: 20px;
+}
+
+#topbar .about {
+    float: left;
+    color: #036;
+    padding-top: 2px;
+}
+
+#maplink {
+    float: right;
+    color: #036;
+    text-decoration: none;
+    padding-top: 2px;
+}
+
+#topbar a:hover {
+    text-decoration: underline;
+}
+
+#maplink img {
+    vertical-align: middle;
+}
+
+#linkbox {
+    z-index: 5000;
+    background-color: #fff;
+    width: 40%;
+    padding: 0.5em 1em;
+    text-align: left;
+    height: 75px;
+    position: absolute;
+    right: -1px;
+    top: 20px;
+    border: 1px solid gray;
+    background-color: #eee;
+    display: none;
+    border-bottom-left-radius: 8px;
+    -moz-border-radius-bottomleft: 8px;
+}
+
+#linkbox a {
+    float: right;
+    text-decoration: none;
+}
+
+#linkbox input {
+    width: 100%;
+}
+
+.olControlLoadingPanel {
+    background-image:url(http://imageserv.lib.unc.edu/geobrowse/ajax-loader.gif);
+    margin-left: 35%;
+    margin-top: 225px;
+    position: relative;
+    width: 220px;
+    height: 19px;
+    background-position:center;
+    background-repeat:no-repeat;
+    display: none;
+}
+
+.olControlLayerSwitcher .layersDiv {
+    background-color: #364c83 !important;
+}
+
+
+/************************
+ * facet sidebar styles *
+ ************************/
+#facets {
+    width: 20%;
+    font-size: 11px;
+    float: left;
+}
+
+#activeFacets, #inactiveFacets {
+    border: 1px solid gray;
+    padding: 5px 10px 10px 10px;
+    margin-bottom: 5px;
+}
+
+#facets h4 {
+    margin-top: 5px;
+    margin-bottom: 2px;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+#facets ul {
+    list-style: none;
+}
+
+#facets li {
+    background-image: url(http://imageserv.lib.unc.edu/geobrowse/bullet.gif);
+    background-repeat: no-repeat;
+    background-position: 5px 6px;
+    padding: 0;
+    margin: 0;
+    padding-left: 15px;
+    line-height: 15px;
+}
+
+#morelink {
+    margin-left: 20%;
+}
+
+/********************
+ * image bar styles *
+ ********************/
+#items {
+    height: 75px;
+    display: block;
+    filter:alpha(opacity=95);
+    opacity: 0.95;
+    background-color: #222;
+    text-align: center;
+    z-index: 1;
+    margin-top: 1em;
+    border: 1px solid gray;
+    position: relative;
+}
+
+#items ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 35px;
+}
+
+#items ul li {
+    display: inline;
+    margin: 0 3px;
+    padding: 0;
+}
+
+#nextPageButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#prevPageButton {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/******************************
+ * large image display styles *
+ ******************************/
+#wrapper {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  min-width: 100%;
+  min-height: 100%;
+  background: #000;
+  display: none;
+  z-index: 19999;
+}
+
+#viewer {
+    visibility: hidden;
+    z-index: 20000;
+    background: #FFF;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#v-image {
+    float: left;
+    padding: 5px;
+}
+
+#v-links {
+    float: right;
+}
+
+.v-button {
+  border: 1px solid gray;
+  border-right: none;
+  margin-top: 5px;
+  padding: 2px;
+}
+
+#v-desc {
+  clear: both;
+  padding: 5px;
+}

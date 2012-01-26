@@ -1,0 +1,54 @@
+<script id="activeLinkTmpl" type="text/x-jquery-tmpl">
+    <li><a href="index.html?${query}">${name}
+        <img src="http://imageserv.lib.unc.edu/geobrowse/negate.png" alt="Remove facet" />
+    </a></li>
+</script>
+<script id="inactiveLinkTmpl" type="text/x-jquery-tmpl">
+    <li><a href="index.html?${query}">${name} (${count})</a></li>
+</script>
+<script id="activeTemplate" type="text/x-jquery-tmpl">
+    <h4>Active Facets</h4>
+    <ul>
+    {{each facets}}
+        {{each items}}
+            {{if active}}
+                {{if activeSubitems}}
+                    <li>${name}
+                        <ul>
+                            {{each subitems}}
+                                {{if active}}
+                                    {{tmpl(subitems[$index]) "#activeLinkTmpl"}}
+                                {{/if}}
+                            {{/each}}
+                        </ul>
+                     </li>
+                 {{else}}
+                    {{tmpl(items[$index]) "#activeLinkTmpl"}}
+                 {{/if}}
+             {{/if}}
+        {{/each}}
+    {{/each}}
+    </ul>
+</script>
+<script id="facetTemplate" type="text/x-jquery-tmpl">
+    <h4>${$item.displayNames[name]}</h4>
+    <ul id="${name}Facet">
+    {{each items}}
+        {{if active}}
+            {{if expandable}}
+                <li>${name}
+                    <ul>
+                        {{each subitems}}
+                            {{if !active}}
+                                {{tmpl(subitems[$index]) "#inactiveLinkTmpl"}}
+                            {{/if}}
+                        {{/each}}
+                    </ul>
+                </li>
+            {{/if}}
+        {{else}}
+            {{tmpl(items[$index]) "#inactiveLinkTmpl"}}
+        {{/if}}
+    {{/each}}
+    </ul>
+</script>
