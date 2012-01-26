@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Example Geobrowse Page</title>
+        <!-- add Google Maps API here -->
+        <script type="text/javascript" src=""></script>
+        <!-- add OpenLayers here -->
+        <script type="text/javascript" src=""></script>
+        <!-- add jQuery here -->
+        <script type="text/javascript" src=""></script>
+        <!-- add jQuery Templates here -->
+        <script type="text/javascript" src=""></script>
+        <style type="text/css">
+            #map { height:400px;}
+        </style>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script type="text/javascript">
+            /*
+             * Set this to the location of your Solr install, e.g.
+             * http://localhost/solr/geobrowse/select/
+             */
+            var solr;
+        </script>
+        <script type="text/javascript" src="geobrowse.min.js"></script>
+    </head>
+    <body>
+        <div id="facets">
+            <div id="activeFacets"></div>
+            <div id="inactiveFacets"></div>
+        </div>
+        <div id="map-container">
+            <div id="topbar">
+                <a class="about" href="about.html">About</a>
+                <a id="maplink" href="">
+                    <img src='http://imageserv.lib.unc.edu/geobrowse/link.png' alt="Link to view of map" /> Link
+                </a>
+                <div id="linkbox">
+                    <a href="#"><img src="http://imageserv.lib.unc.edu/geobrowse/cross.png" alt="close box" /></a>
+                    <p>Link to this view of the map</p>
+                    <input type="text" />
+                </div>
+            </div>
+            <div id="map"></div>
+            <div id="items">
+                <a href="" id="prevPageButton"><img src="http://imageserv.lib.unc.edu/geobrowse/left.png" /></a>
+                <ul id="items-list">
+                </ul>
+                <a href="" id="nextPageButton"><img src="http://imageserv.lib.unc.edu/geobrowse/right.png" /></a>
+            </div>
+        </div>
+    </body>
+</html>
