@@ -29,6 +29,13 @@ OpenLayers.Strategy.QuadCluster = OpenLayers.Class(OpenLayers.Strategy, {
     bounds: null,
 
     /**
+     * Property: zoom
+     * {Number} If bounds is provided, optionally, also provide a zoom level that
+     *      should be used for a query when the layer is initially loaded.
+     */
+    zoom: null,
+
+    /**
      * Property: zoomOffset,
      * {Number} Optionally, provide an offset for getting hashes for a zoom level.
      *      For example, setting this to 2 would request hashes for 2 zoom levels
@@ -77,7 +84,7 @@ OpenLayers.Strategy.QuadCluster = OpenLayers.Class(OpenLayers.Strategy, {
      */
     load: function(options) {
         var layer = this.layer;
-        var hashes = this.getHashes(this.bounds);
+        var hashes = this.getHashes(this.bounds, this.zoom);
         for (var i=0; i<hashes.length; i++) {
             hashes[i] = 'group.query=hash:'+hashes[i]+'*';
         }
@@ -98,7 +105,7 @@ OpenLayers.Strategy.QuadCluster = OpenLayers.Class(OpenLayers.Strategy, {
         /*
          * Map should recenter/zoom only the first time this layer loads.
          */
-        this.recenter = this.bounds = null;
+        this.recenter = this.bounds = this.zoom = null;
     },
 
     /**
@@ -231,16 +238,28 @@ OpenLayers.Strategy.QuadCluster = OpenLayers.Class(OpenLayers.Strategy, {
      *  of the map.
      *
      * Parameters:
-     * bounds - {OpenLayers.Bounds} Optionally, get the hashes for a specified
+     * iBounds - {OpenLayers.Bounds} Optionally, get the hashes for a specified
      *      bounds rather than the visible extent of the map.
+     * iZoom - {Number} In addition to the optional bounds parameter, specify a
+     *      zoom level. If bounds is specified without zoom, a reasonable zoom
+     *      is chosen.
      * Returns:
      * {Object} An array of hashstrings
      */
-    getHashes: function(bounds) {
+    getHashes: function(iBounds, iZoom) {
         var layer = this.layer;
         var extent, zoom;
-        if (bounds && this.recenter) {
-            extent = bounds;
+        if (iBounds && this.recenter) {
+            extent = iBounds;
+            var tsfmExtent = extent.clone().transform(
+                new OpenLayers.Projection('EPSG:4326'),
+                new OpenLayers.Projection('EPSG:900913')
+            );
+            if (iZoom) {
+                zoom = iZoom;
+            } else {
+                zoom = layer.map.getZoomForExtent(tsfmExtent);
+            }
         } else if (layer.map && 'getExtent' in layer.map) {
             extent = layer.map.getExtent().transform(
                 new OpenLayers.Projection('EPSG:900913'),
@@ -248,16 +267,11 @@ OpenLayers.Strategy.QuadCluster = OpenLayers.Class(OpenLayers.Strategy, {
         } else {
             extent = new OpenLayers.Bounds(-180, -89, 180, 89);
         }
-
-        var tsfmExtent = extent.clone().transform(
-            new OpenLayers.Projection('EPSG:4326'),
-            new OpenLayers.Projection('EPSG:900913')
-        );
         /*
          * Determine effective zoom level we will be requesting hashes for.
          * This should be between 3 and 17.
          */
-        zoom = layer.map.getZoomForExtent(tsfmExtent) + this.zoomOffset;
+        zoom = parseInt(zoom || layer.map.getZoom() || 0) + this.zoomOffset;
         if (zoom < 3) zoom = 3;
         if (zoom > 17) zoom = 17;
         var quadsize = 90 / Math.pow(2,zoom); //size of quad along y for zoom

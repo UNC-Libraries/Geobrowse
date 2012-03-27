@@ -20,10 +20,20 @@ OpenLayers.ImgPath = 'http://styleserv.lib.unc.edu/openlayers/img/';
 function Geobrowse(options) {
         var query = options['q'];
         var solrurl = options['solr'];
-        var center = options['center'];
+        var bbox = options['bbox'];
         var zoom = options['zoom'];
         var xhrproxy = options['proxy'] ? options['proxy'] : '';
         var bounds = options['bounds'];
+        var center;
+
+        if (bbox && zoom) {
+            var reqBounds = OpenLayers.Bounds.fromString(bbox);
+            bounds = reqBounds.clone().transform(
+                new OpenLayers.Projection('EPSG:900913'),
+                new OpenLayers.Projection('EPSG:4326')
+            );
+            center = reqBounds.getCenterLonLat();
+        }
 
         var mapoptions = {
           maxExtent: new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508),
@@ -115,7 +125,8 @@ function Geobrowse(options) {
                     strategies: [
                         new OpenLayers.Strategy.QuadCluster({
                             bounds: bounds,
-                            zoomOffset: 2
+                            zoom: zoom,
+                            zoomOffset: 1
                         }),
                         new OpenLayers.Strategy.Cluster({
                             distance: 30,
@@ -157,8 +168,7 @@ function Geobrowse(options) {
         
         map.events.on({"moveend": function(event) {
                 var search = window.location.search.split('?');
-                var center = map.getCenter();
-                var ll = center.lon+','+center.lat;
+                var ll = map.getExtent().toArray().join(",");
                 var zoom = map.getZoom();
                 if (search.length > 1) {
                     search = search[1].split('&');
@@ -223,6 +233,11 @@ $(function(){
     var q = qString;
     $.when(
         $.Deferred(function(dfd){
+            /**
+             * This is needed in order to get a bounding box for the points in a
+             * query. The bounds are passed to the QuadCluster layer for determining
+             * the quads to request; it's also used to zoom/center map on load.
+             */
             var params = {
                 'q': q,
                 'rows': 0,
@@ -253,14 +268,13 @@ $(function(){
          *  OpenLayers) and after an initial call to Solr to determine required
          *  zoom and extent for map.
          */
-        var center = params['ll'] ? decodeURI(params['ll']) : null;
+        var bbox = params['ll'] ? decodeURI(params['ll']) : null;
         var zoom = params['z'] ? params['z'] : 1;
-        var ll = center ? OpenLayers.LonLat.fromString(center) : null;
         var xhrproxy = (typeof proxy != 'undefined') ? proxy : null;
         new Geobrowse({
             'q': qString,
             'solr': solr,
-            'center': ll,
+            'bbox': bbox,
             'zoom': zoom,
             'proxy': xhrproxy,
             'bounds': options.bounds
