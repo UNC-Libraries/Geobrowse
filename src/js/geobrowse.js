@@ -11,6 +11,7 @@ define(["util/solrrequest", "config"], function(SReq, config) {
 var sreq = SReq;
 var solr = config.solr;
 var proxy = ("proxy" in config) ? config.proxy : "";
+OpenLayers.ImgPath = 'http://styleserv.lib.unc.edu/openlayers/img/';
 
 return function(options) {
     var query = sreq.getQuery() || "*:*";
