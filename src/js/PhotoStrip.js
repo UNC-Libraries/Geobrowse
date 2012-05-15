@@ -1,3 +1,5 @@
+define(["jquery"], function($){
+
 (function( $ ){
 
     var methods = {
@@ -207,3 +209,5 @@
     };
 
 })(jQuery);
+
+});

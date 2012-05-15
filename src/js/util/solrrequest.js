@@ -2,7 +2,7 @@
 /**
  * solrrequest.js - retrieve and manipulate Solr query parameters
  * 
- * This module returns an object that generally allows manipulation of request
+ * This module returns an object that allows manipulation of request
  * parameters. It also provides specific functionality for manipulating a Solr
  * query parameter (q).
  */
@@ -12,6 +12,7 @@ define(function() {
 var terms   = [],
     params  = {},
     rparams,
+    SolrReq,
     i, key, value;
 
 rparams = window.location.href.indexOf("?") !== -1 ? 
@@ -28,7 +29,7 @@ if (typeof(params["q"]) === "string") {
     terms = params["q"].split(" AND ");
 }
 
-return {
+SolrReq = {
     
     /**
      * Check if query term is present in request.
@@ -91,7 +92,16 @@ return {
             }
         }
         return req.join("&");
+    },
+    
+    /**
+     * Get the Solr query string.
+     */
+    getQuery: function() {
+        return terms.join(" AND ");
     }
 }
+
+return SolrReq;
 
 });

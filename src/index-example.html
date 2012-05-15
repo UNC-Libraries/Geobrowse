@@ -3,25 +3,15 @@
     <head>
         <title>Example Geobrowse Page</title>
         <!-- add Google Maps API here -->
-        <script type="text/javascript" src=""></script>
-        <!-- add OpenLayers here -->
-        <script type="text/javascript" src=""></script>
-        <!-- add jQuery here -->
-        <script type="text/javascript" src=""></script>
-        <!-- add jQuery Templates here -->
-        <script type="text/javascript" src=""></script>
+        <script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAkHM0MH3BW3F75itJL_m1fxSHP1nyvjm6uiNekQbWF8KuEZFsWhRnD1WDBOt0bPmNs4V_TWooR1bWRg&amp;sensor=false"></script>
+
         <style type="text/css">
             #map { height:400px;}
         </style>
         <link rel="stylesheet" type="text/css" href="style.css" />
-        <script type="text/javascript">
-            /*
-             * Set this to the location of your Solr install, e.g.
-             * http://localhost/solr/geobrowse/select/
-             */
-            var solr;
-        </script>
-        <script type="text/javascript" src="geobrowse.min.js"></script>
+
+        <script src="js/OpenLayers.js"></script>
+        <script data-main="js/main" src="js/require-jquery.js"></script>
     </head>
     <body>
         <div id="facets">

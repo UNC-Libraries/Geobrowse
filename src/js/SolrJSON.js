@@ -1,3 +1,5 @@
+define(function(){
+
 /**
  * Class: OpenLayers.Format.SolrJSON
  *
@@ -53,4 +55,6 @@ OpenLayers.Format.SolrJSON = OpenLayers.Class(OpenLayers.Format.JSON, {
     },
 
     CLASS_NAME: "OpenLayers.Format.SolrJSON"
+});
+
 });
