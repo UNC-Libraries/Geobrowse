@@ -2,7 +2,7 @@ GeoBrowse
 =====================================================
 
 GeoBrowse is an application for browsing images using a faceted and geographic
-interface. For an example, see <http://www.lib.unc.edu/dc/geobrowse/>.
+interface. For an example, see http://www.lib.unc.edu/dc/geobrowse/.
 
 This application relies heavily on Solr (3.3+).
 
@@ -65,7 +65,7 @@ numbering scheme::
  |       |       |
  +-------+-------+
 
-We use <http://code.google.com/p/python-geohash/> for generating quad tree hashes.
+We use http://code.google.com/p/python-geohash/ for generating quad tree hashes.
 
 OpenLayers
 ~~~~~~~~~~

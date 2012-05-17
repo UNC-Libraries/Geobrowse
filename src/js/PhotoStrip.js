@@ -80,7 +80,8 @@ define(["jquery"], function($){
 
                 img = $("<img/>").attr({
                     src: value.thumbnail,
-                    "data-url": value.url_self_s
+                    "data-url": value.url_self_s,
+                    title: value.title
                 }).on("load", function(e) {
                     dfd.resolve(img);
                     return true;

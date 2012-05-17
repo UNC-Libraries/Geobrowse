@@ -38,7 +38,8 @@ return function(options) {
         projection: new OpenLayers.Projection("EPSG:900913"),
         displayProjection: new OpenLayers.Projection('EPSG:4326'),
         controls: [
-            new OpenLayers.Control.PanZoomBar(),
+            /* @todo: This needs to be handled through dependency injection */
+            new OpenLayers.Control.UNCPanZoomBar(),
             new OpenLayers.Control.Navigation(),
             new OpenLayers.Control.LayerSwitcher({roundedCornerColor: '#364c83'})
         ]
