@@ -11,6 +11,9 @@
     $(window).load(function(){
         dfd.resolve();
     });
+    if (window._loaded) {
+        dfd.resolve();
+    }
     $.fn.windowloaded = function() {
         return dfd;
     }

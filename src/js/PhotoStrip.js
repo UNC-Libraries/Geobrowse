@@ -1,4 +1,4 @@
-define(["jquery"], function($){
+define(["jquery", "config"], function($, config){
 
 (function($){
     var requesting = false,
@@ -108,6 +108,9 @@ define(["jquery"], function($){
 
     var displayImage = function(url) {
         $("#wrapper, #viewer").remove();
+        if (config.proxy) {
+            url = config.proxy+url;
+        }
         $.getJSON(url, function(data) {
             var description = data.description;
             var imgurl = data.image;

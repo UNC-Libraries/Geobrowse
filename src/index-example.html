@@ -9,7 +9,18 @@
 
         <!-- add OpenLayers script here -->
         <script type="text/javascript" src=""></script>
-        
+
+        <script type="text/javascript">
+            /**
+             * OL won't work in IE if initialized before the window.onload
+             * event.
+             */
+            window._loaded = false;
+            window.onload = function() {
+                window._loaded = true;
+            }
+        </script>
+
         <script data-main="js/main" src="js/require-jquery.js"></script>
     </head>
     <body>
