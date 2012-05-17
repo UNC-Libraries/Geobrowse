@@ -1,12 +1,27 @@
 
+/**
+ * This needs to be loaded outside of RequireJS's asynchronous load to
+ * make sure the window load event is captured. OpenLayers can't be
+ * initialized until after the window load event in IE. This function
+ * allows us to safely use the window load event as a deferred within
+ * $.ready().
+ */
+(function($) {
+    var dfd = $.Deferred();
+    $(window).load(function(){
+        dfd.resolve();
+    });
+    $.fn.windowloaded = function() {
+        return dfd;
+    }
+})(jQuery);
+
+
 require(["jquery", "util/solrrequest", "config", "geobrowse",
     "QuadCluster", "SolrJSON", "PhotoStrip",
-    "jquery.tmpl.beta1.min", "Facets"],
+    "jquery.tmpl.beta1.min", "Facets", "jquery.kinetic"],
     function($, SReq, config, Geobrowse ) {
-        
-    
-var sreq = SReq;
-var solr = config.solr;
+
 /**
  * @todo: if no config.solr then throw error
  */
@@ -15,7 +30,7 @@ $(function(){
     /**
      * Add event handlers to map link functionality.
      */
-    $("#items").photostrip({solr: solr});
+    $("#imgbar-wrapper").photostrip({solr: config.solr});
     $('#linkbox a').click(function(event) {
         event.preventDefault();
         $(this).parent().toggle('fast');
@@ -32,7 +47,7 @@ $(function(){
     /**
      * Initializes the map
      */
-    var q = sreq.getQuery() || "*:*";
+    var q = SReq.getQuery() || "*:*";
     var params = {
         'q': q,
         'rows': 0,
@@ -52,9 +67,7 @@ $(function(){
             data: params,
             traditional: true
         }),
-        $.Deferred(function(dfd){
-            $(window).load(dfd.resolve);
-        })
+        $(document).windowloaded()
     ).done(function(data) {
         var response = $.parseJSON(data[2].responseText);
         var stats = response.stats.stats_fields;
@@ -68,10 +81,10 @@ $(function(){
          */
         var opts = {
             bounds: bounds,
-            bbox: sreq.getParam("ll"),
-            zoom: sreq.getParam("z")
+            bbox: SReq.getParam("ll"),
+            zoom: SReq.getParam("z")
         };
-        
+
         new Geobrowse(opts);
     });
 });

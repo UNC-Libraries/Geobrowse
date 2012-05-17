@@ -1,7 +1,7 @@
 
 /**
  * geobrowse.js - initializes geobrowse map
- * 
+ *
  * This module configures and initializes the map for the Geobrowse
  * interface.
  */
@@ -134,7 +134,7 @@ return function(options) {
                             hashes.push(c[i].data.hash);
                             count += c[i].data.count;
                         }
-                        $("#items").photostrip('loadCluster', {
+                        $("#imgbar-wrapper").photostrip('loadCluster', {
                             query: 'hash:('+hashes.join(" OR ")+')'+' AND '+query,
                             total: count
                         });
@@ -201,8 +201,8 @@ return function(options) {
             */
         map.zoomTo(0);
     }
-    
+
     return map;
 }
-    
+
 });

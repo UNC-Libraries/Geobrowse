@@ -98,18 +98,6 @@ img {
     width: 100%;
 }
 
-.olControlLoadingPanel {
-    background-image:url(http://imageserv.lib.unc.edu/geobrowse/ajax-loader.gif);
-    margin-left: 35%;
-    margin-top: 225px;
-    position: relative;
-    width: 220px;
-    height: 19px;
-    background-position:center;
-    background-repeat:no-repeat;
-    display: none;
-}
-
 .olControlLayerSwitcher .layersDiv {
     background-color: #364c83 !important;
 }
@@ -158,41 +146,62 @@ img {
 /********************
  * image bar styles *
  ********************/
-#items {
+#imgbar-wrapper {
     height: 75px;
-    display: block;
-    filter:alpha(opacity=95);
-    opacity: 0.95;
     background-color: #222;
-    text-align: center;
-    z-index: 1;
     margin-top: 1em;
-    border: 1px solid gray;
+    border: 1px solid #666;
     position: relative;
 }
 
-#items ul {
+#imgbar-content {
+    height: 75px;
+    overflow: hidden;
+    text-align: center;
+}
+
+#imgbar-content img {
+    height: 75px;
+}
+
+#imgbar-wrapper ul, #imgbar-wrapper li {
+    padding: 0;
+    margin: 0;
+}
+
+#imgbar-wrapper ul {
     list-style: none;
-    padding: 0;
-    margin: 0 35px;
 }
 
-#items ul li {
+#imgbar-wrapper li {
     display: inline;
-    margin: 0 3px;
-    padding: 0;
 }
 
-#nextPageButton {
+#imgbar-back-button, #imgbar-forward-button {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 0px;
+    display: none;
+    cursor: pointer;
 }
 
-#prevPageButton {
+#imgbar-back-button {
+    left: 0px;
+}
+
+#imgbar-forward-button {
+    right: 0px;
+}
+
+.imgbar-button-background {
+    opacity: 0.75;
+    height: 75px;
+    width: 30px;
+    background-color: #111;
+}
+
+#imgbar-back-button img, #imgbar-forward-button img {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 22px;
 }
 
 /******************************
