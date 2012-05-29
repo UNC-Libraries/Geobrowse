@@ -9,6 +9,11 @@
 define(["util/solrrequest", "config"], function(SReq, config) {
 
 var sreq = SReq;
+if (config.qterms) {
+    for (var i=0; i<config.qterms.length; i++) {
+        sreq.addTerm(config.qterms[i]);
+    }
+}
 var solr = config.solr;
 var proxy = ("proxy" in config) ? config.proxy : "";
 OpenLayers.ImgPath = 'http://styleserv.lib.unc.edu/openlayers/img/';

@@ -3,6 +3,11 @@ define(["config", "util/solrrequest"], function(config, SReq) {
     
 var sreq = SReq;
 var solr = config.solr;
+if (config.qterms) {
+    for (var i=0; i<config.qterms.length; i++) {
+        sreq.addTerm(config.qterms[i]);
+    }
+}
 var qString = sreq.getQuery() || "*:*";
 
 
@@ -147,10 +152,9 @@ $(function(){
         'f.decade.facet.sort':'index'
     };
     var facetlist = [];
-    var templates = ((typeof localTemplates !== "undefined") && localTemplates) ? localTemplates : 'facets.tmpl.html';
-    if ((typeof facetFields !== 'undefined') && facetFields) {
-        //override defaults
-        $.extend(params, {'facet.field': facetFields});
+    var templates = config.templates || 'facets.tmpl.html';
+    if (config.facets && config.facets.length) {
+        $.extend(params, {'facet.field': config.facets});
     }
     $.when(
         $.ajax({
