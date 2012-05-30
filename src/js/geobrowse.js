@@ -126,7 +126,7 @@ return function(options) {
                     new OpenLayers.Strategy.QuadCluster({
                         bounds: bounds,
                         zoom: zoom,
-                        zoomOffset: 1
+                        zoomOffset: config.zoomoffset || 1
                     }),
                     new OpenLayers.Strategy.Cluster({
                         distance: 30,
