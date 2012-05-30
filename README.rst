@@ -19,7 +19,54 @@ the only javascript files that are needed once it's built are ``main.js`` and
 ``require-jquery.js``.
 
 The index-example.html should be updated to include the Google Maps API and
-OpenLayers.
+OpenLayers, and to provide configuration options for the application.
+
+Configuring GeoBrowse
+---------------------
+
+GeoBrowse is configured by defining a ``require`` object before RequireJS is
+loaded. The config module contains application specific configuration options:
+
+    ``solr`` (required): location of Solr index
+
+    ``proxy``: location of proxy script for image service
+
+    ``qterms``: an array of Solr query terms to limit result set
+
+    ``facets``: an array of Solr fields to facet on
+
+    ``templates``: templates file for facets
+
+    ``zoomoffset``: setting for aggressiveness of clustering algorithm (see QuadCluster module)
+
+The above application specific configuration options should be passed to the
+config module using the config option::
+
+    var require = {
+        config: {
+            config: {
+                solr: "http://localhost/solr/geobrowse/select/",
+                facets: ["subject", "date"]
+            }
+        }
+    };
+
+All other `RequireJS configuration options <http://requirejs.org/docs/api.html#config>`_
+can be passed to this require object as well. For example, to load the GeoBrowse
+application from another domain::
+
+    <script>
+        var require = {
+            config: {
+                config: {
+                    solr: "http://localhost/solr/geobrowse/select/"
+                }
+            }
+            baseUrl: "http://example.org/js/"
+        };
+    </script>
+    <script data-main="main" src="http://example.org/js/require-jquery.js"></script>
+
 
 How does this work?
 -------------------
