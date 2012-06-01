@@ -6,8 +6,7 @@
     modules: [
         {
             name: "main",
-            exclude: ["jquery"],
-            excludeShallow: ["config"]
+            exclude: ["jquery"]
         }
     ]
 })
