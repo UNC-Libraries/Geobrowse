@@ -4,24 +4,34 @@
         <title>Example Geobrowse Page</title>
         <!-- add Google Maps API here -->
         <script type="text/javascript" src=""></script>
-        <!-- add OpenLayers here -->
+
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+        <!-- add OpenLayers script here -->
         <script type="text/javascript" src=""></script>
-        <!-- add jQuery here -->
-        <script type="text/javascript" src=""></script>
-        <!-- add jQuery Templates here -->
-        <script type="text/javascript" src=""></script>
-        <style type="text/css">
-            #map { height:400px;}
-        </style>
-        <link rel="stylesheet" type="text/css" href="style.css" />
+
         <script type="text/javascript">
-            /*
-             * Set this to the location of your Solr install, e.g.
-             * http://localhost/solr/geobrowse/select/
+            /**
+             * OL won't work in IE if initialized before the window.onload
+             * event.
              */
-            var solr;
+            window._loaded = false;
+            window.onload = function() {
+                window._loaded = true;
+            }
         </script>
-        <script type="text/javascript" src="geobrowse.min.js"></script>
+
+        <script type="text/javascript">
+            var require = {
+                config: {
+                    config: {
+                        solr: "http://localhost/solr/geobrowse/select/"
+                    }
+                }
+            }
+        </script>
+
+        <script data-main="js/main" src="js/require-jquery.js"></script>
     </head>
     <body>
         <div id="facets">
@@ -32,20 +42,28 @@
             <div id="topbar">
                 <a class="about" href="about.html">About</a>
                 <a id="maplink" href="">
-                    <img src='http://imageserv.lib.unc.edu/geobrowse/link.png' alt="Link to view of map" /> Link
+                    <img src='images/link.png' alt="Link to view of map" /> Link
                 </a>
                 <div id="linkbox">
-                    <a href="#"><img src="http://imageserv.lib.unc.edu/geobrowse/cross.png" alt="close box" /></a>
+                    <a href="#"><img src="images/cross.png" alt="close box" /></a>
                     <p>Link to this view of the map</p>
                     <input type="text" />
                 </div>
             </div>
             <div id="map"></div>
-            <div id="items">
-                <a href="" id="prevPageButton"><img src="http://imageserv.lib.unc.edu/geobrowse/left.png" /></a>
-                <ul id="items-list">
-                </ul>
-                <a href="" id="nextPageButton"><img src="http://imageserv.lib.unc.edu/geobrowse/right.png" /></a>
+            <div id="imgbar-wrapper">
+                <div id="imgbar-back-button">
+                    <div class="imgbar-button-background"></div>
+                    <img src="images/arrow-l.png" />
+                </div>
+                <div id="imgbar-content">
+                    <ul>
+                    </ul>
+                </div>
+                <div id="imgbar-forward-button">
+                    <div class="imgbar-button-background"></div>
+                    <img src="images/arrow-r.png" />
+                </div>
             </div>
         </div>
     </body>

@@ -1,40 +1,14 @@
-// ================
-// = svn metadata =
-// ================
-// $Id$
-// $URL$
 
-// load order: 1
-
-function getUrlParams() {
-    /*
-     * This function needs to get loaded early in order to give facets and map
-     * classes access to the URL params.
-     */
-    var urlparams = [], hash;
-    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for(var i = 0; i < hashes.length; i++) {
-        hash = hashes[i].split('=');
-        urlparams.push(hash[0]);
-        urlparams[hash[0]] = hash[1];
+define(["config", "util/solrrequest"], function(config, SReq) {
+    
+var sreq = SReq;
+var solr = config.solr;
+if (config.qterms) {
+    for (var i=0; i<config.qterms.length; i++) {
+        sreq.addTerm(config.qterms[i]);
     }
-    if ((typeof localQuery !== "undefined") && localQuery) {
-        if (urlparams['q']) {
-            var qString = decodeURI(urlparams['q']);
-            var qArray = [];
-            if (qString.indexOf(localQuery) == -1) {
-                qArray = qString.split(" AND ");
-                qArray.push(localQuery);
-                urlparams['q'] = encodeURI(qArray.join(" AND "));
-            }
-        } else {
-            urlparams['q'] = encodeURI(localQuery);
-        }
-    }
-    return urlparams;
 }
-var params = getUrlParams();
-var qString = decodeURI(params['q'] ? params['q'] : '*:*');
+var qString = sreq.getQuery() || "*:*";
 
 
 function Facet(name, query, items) {
@@ -178,10 +152,9 @@ $(function(){
         'f.decade.facet.sort':'index'
     };
     var facetlist = [];
-    var templates = ((typeof localTemplates !== "undefined") && localTemplates) ? localTemplates : 'facets.tmpl.html';
-    if ((typeof facetFields !== 'undefined') && facetFields) {
-        //override defaults
-        $.extend(params, {'facet.field': facetFields});
+    var templates = config.templates || 'facets.tmpl.html';
+    if (config.facets && config.facets.length) {
+        $.extend(params, {'facet.field': config.facets});
     }
     $.when(
         $.ajax({
@@ -226,4 +199,6 @@ $(function(){
                 });
         }
     });
+});
+
 });

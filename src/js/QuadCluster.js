@@ -1,3 +1,6 @@
+
+define(function(){
+
 /**
  * Class: OpenLayers.Strategy.QuadCluster
  * A strategy that requests quadtree clusters from Solr.
@@ -329,4 +332,6 @@ OpenLayers.Strategy.QuadCluster = OpenLayers.Class(OpenLayers.Strategy, {
     },
 
     CLASS_NAME: "OpenLayers.Strategy.QuadCluster"
+});
+
 });

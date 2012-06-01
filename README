@@ -1,7 +1,0 @@
-*************
-* GeoBrowse *
-*************
-
-1. cp src/index-example.html src/index.html and change as necessary
-2. ./build.py
-3. copy dist/ to server
